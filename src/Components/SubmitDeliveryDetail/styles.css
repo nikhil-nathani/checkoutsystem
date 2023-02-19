@@ -1,0 +1,19 @@
+input:focus {
+  border:none
+}
+input{
+  border: none;
+    border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: hidden;
+      outline: none;
+}
+textarea{
+    border: none;
+      border-top-style: hidden;
+      border-right-style: hidden;
+      border-left-style: hidden;
+      border-bottom-style: hidden;
+      outline: none;
+}
