@@ -479,7 +479,14 @@ const Summary=(props)=>{
               cursor: "pointer",
             }}
             onClick={() => {
-              let check = Object.values(errorCheck).every((v) => v === false);
+               let check;
+              if(isChecked){
+              check = Object.values(errorCheck).every((v) => v === false);
+              }else{
+              check=  Object.values(errorCheck).slice(0, 3).every(val => val === false)
+              }
+              
+              console.log(errorCheck,"ERRORCHECK")
               if (step == 1) {
                 if (check) {
                   setStep(2);
@@ -758,13 +765,23 @@ function App() {
      setTotal((randomNumber * 130000)+5900);
   },[randomNumber])
   useEffect(() => {
-    let totalpriceofproducts = randomNumber * 130000+selectedShipment?.price;
+        let totalpriceofproducts
+    if(randomNumber){
+      if(selectedShipment){
+totalpriceofproducts =
+        randomNumber * 130000 + selectedShipment?.price;
+      }else{
+        totalpriceofproducts= randomNumber*130000
+      }
+      
     if (isChecked) {
       totalpriceofproducts = totalpriceofproducts + 5900;
       setTotal(totalpriceofproducts);
     } else {
+      console.log(totalpriceofproducts,"TOTAL PRICE")
       setTotal(totalpriceofproducts);
     }
+  }
   }, [isChecked,selectedShipment]);
   return (
     <div className="App">
