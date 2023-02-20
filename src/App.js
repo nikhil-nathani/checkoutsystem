@@ -20,13 +20,14 @@ const styles = {
     zindex: 0,
   },
   checkoutBanner: {
-    width: "70%",
-    height: "80vh",
+    width: "90%",
+
     backgroundColor: "white",
     justifyContent: "center",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    boxShadow: "2px 10px 20px rgba(255, 138, 0, 0.1)",
   },
   indicatorContainer: {
     marginTop: "-40px",
@@ -39,10 +40,102 @@ const styles = {
     justifyContent: "center",
   },
 };
+const StepCheckout = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: #fffae6;
+  border-radius: 35px;
+  width: 500px;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  z-index: 1;
+  
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    padding: 10px;
+  }
+`;
+const CheckoutLayoutWrapper = styled.div`
+  background-color: #ffffff;
+  padding: 0 20px 20px 40px;
+  border-radius: 4px;
+  min-height: 500px;
+  box-shadow: 2px 10px 20px rgba(255, 138, 0, 0.1);
+`;
+const StepItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StepNumber = styled.div`
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  width: 35px;
+  height: 35px;
+  background: ${(props) => (props.active ? "#ff8a00" : "#ffe4b8")};
+  color: ${(props) => (props.active ? "#fff" : "#ff8a00")};
+  margin-right: 10px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap:wrap;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+    font-weight: 400;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const StepTitle = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  color: #ff8a00;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+    font-weight: 400;
+  }
+`;
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto 300px;
+  gap: 30px;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const IndicatorContainer = styled.div`
+  margin-top: -30px;
+  width: 60%;
+  height: 15%;
+  background-color: #fffae6;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media only screen and (max-width: 600px) {
+    margin-top: 0;
+    width: 100%;
+    border-radius: 0;
+    background-color: rgb(255, 250, 230);
+  }
+`;
 
 const TopIndicatorNumber = styled.div`
   background-color: #ff8a00;
-  border-radius: 32px;
+  border-radius: 50px;
   height: 30px;
   width: 30px;
   margin-right: 10px;
@@ -72,6 +165,47 @@ const TopIndicatorText = styled.div`
       color: white;
     `};
 `;
+const ShipmentList = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  flex-direction:column;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+const ShipmentListItem = styled.div`
+  display: flex;
+  gap: 10px;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+export const PaymentList = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  flex-direction:column;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+export const PaymentListItem = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 function generateCode() {
   const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"; // valid characters
   let code = "";
@@ -90,7 +224,6 @@ const Summary=(props)=>{
 
         alignItems: "center",
         flexDirection: "column",
-        width: "30%",
         marginTop: 10,
       }}
     >
@@ -105,7 +238,7 @@ const Summary=(props)=>{
             color: "#ff8a00",
             fontWeight: "bold",
             margin: 5,
-            fontSize: getWidth(2),
+            fontSize: "36px",
           }}
         >
           Summary
@@ -114,26 +247,27 @@ const Summary=(props)=>{
           style={{
             color: "grey",
             margin: 5,
-            fontSize: getWidth(0.9),
+            fontSize: "14px",
           }}
         >
           {randomNumber + " items purchased"}
         </div>
-        {selectedPayment||selectedShipment?       <div
-              style={{
-                color: "grey",
-                width: "60%",
-                border: "1px solid #cccccc",
-                marginTop: 10,
-                marginLeft: 5,
-              }}
-            />:null}
+        {selectedPayment || selectedShipment ? (
+          <div
+            style={{
+              color: "grey",
+              width: "60%",
+              border: "1px solid #cccccc",
+              marginTop: 10,
+              marginLeft: 5,
+            }}
+          />
+        ) : null}
         {step > 1 && selectedShipment ? (
           <div>
-     
             <div
               style={{
-                fontSize: width / 110,
+                fontSize: "14px",
                 width: "100%",
                 textAlign: "left",
                 margin: 5,
@@ -144,7 +278,7 @@ const Summary=(props)=>{
             </div>
             <div
               style={{
-                fontSize: width / 110,
+                fontSize: "16px",
                 width: "100%",
                 fontWeight: "bold",
                 textAlign: "left",
@@ -157,27 +291,33 @@ const Summary=(props)=>{
           </div>
         ) : null}
         {step > 1 && selectedPayment ? (
-          <div>
-       
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <div
               style={{
-                fontSize: width / 110,
+                fontSize: "14px",
                 width: "100%",
                 textAlign: "left",
                 margin: 5,
                 fontWeight: 400,
+           
               }}
             >
               Payment Method
             </div>
             <div
               style={{
-                fontSize: width / 110,
+                fontSize: "14px",
                 width: "100%",
                 fontWeight: "bold",
                 textAlign: "left",
                 color: "#31dc87",
                 margin: 5,
+              
               }}
             >
               {`${selectedPayment.name}`}
@@ -187,7 +327,8 @@ const Summary=(props)=>{
       </div>
       <div
         style={{
-          height: "37%",
+          height: "40%",
+          marginTop: 18,
           width: "100%",
           flexDirection: "column",
           display: "flex",
@@ -205,7 +346,7 @@ const Summary=(props)=>{
         >
           <div
             style={{
-              fontSize: width / 100,
+              fontSize: "14px",
               color: "#676767",
               width: "78%",
             }}
@@ -214,7 +355,7 @@ const Summary=(props)=>{
           </div>
           <div
             style={{
-              fontSize: width / 110,
+              fontSize: "14px",
               width: "40%",
               fontWeight: "bold",
               textAlign: "right",
@@ -235,7 +376,7 @@ const Summary=(props)=>{
           >
             <div
               style={{
-                fontSize: width / 100,
+                fontSize: "14px",
                 color: "#676767",
                 width: "88%",
               }}
@@ -244,8 +385,8 @@ const Summary=(props)=>{
             </div>
             <div
               style={{
-                fontSize: width / 110,
-                width: "20%",
+                fontSize: "14px",
+                width: "100px",
                 fontWeight: "bold",
                 textAlign: "right",
               }}
@@ -266,7 +407,7 @@ const Summary=(props)=>{
           >
             <div
               style={{
-                fontSize: width / 100,
+                fontSize: "14px",
                 color: "#676767",
                 width: "90%",
               }}
@@ -275,7 +416,7 @@ const Summary=(props)=>{
             </div>
             <div
               style={{
-                fontSize: width / 110,
+                fontSize: "14px",
                 width: "40%",
                 fontWeight: "bold",
                 textAlign: "right",
@@ -297,7 +438,7 @@ const Summary=(props)=>{
         >
           <div
             style={{
-              fontSize: width / 50,
+              fontSize: "24px",
               color: "#ff8a00",
               width: "50%",
               fontWeight: "bold",
@@ -307,7 +448,7 @@ const Summary=(props)=>{
           </div>
           <div
             style={{
-              fontSize: width / 50,
+              fontSize: "24px",
               width: "70%",
               fontWeight: "bold",
               color: "#ff8a00",
@@ -317,40 +458,47 @@ const Summary=(props)=>{
             {total?.toLocaleString()}
           </div>
         </div>
-        {step<3?
-        <div
-          style={{
-            fontSize: width / 90,
-            width: "100%",
-            color: "white",
-            backgroundColor:step!==2?'#ff8a00':selectedPayment&&selectedShipment?'#ff8a00':'#cccccc',
-            height: "40%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "1px 2px 9px #F4AAB9",
-            marginTop: 5,
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            let check = Object.values(errorCheck).every((v) => v === false);
-            if (step == 1) {
-              if (check) {
-                setStep(2);
+        {step < 3 ? (
+          <div
+            style={{
+              fontSize: "18px",
+              width: "100%",
+              color: "white",
+              backgroundColor:
+                step !== 2
+                  ? "#ff8a00"
+                  : selectedPayment && selectedShipment
+                  ? "#ff8a00"
+                  : "#cccccc",
+              height: "300px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "1px 2px 9px #F4AAB9",
+              marginTop: 5,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              let check = Object.values(errorCheck).every((v) => v === false);
+              if (step == 1) {
+                if (check) {
+                  setStep(2);
+                }
               }
-            }
-            if (step == 2) {
-              if (selectedPayment && selectedShipment) {
-                setStep(3);
+              if (step == 2) {
+                if (selectedPayment && selectedShipment) {
+                  setStep(3);
+                }
               }
-            }
-          }}
-        >
-          {step == 1
-            ? "Continue to payment"
-            : selectedPayment?`Pay with ${selectedPayment?.name}`:"Choose payment method"}
-        </div>
-:null}
+            }}
+          >
+            {step == 1
+              ? "Continue to payment"
+              : selectedPayment
+              ? `Pay with ${selectedPayment?.name}`
+              : "Choose payment method"}
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -365,20 +513,17 @@ const ShipmentPanel=(props)=>{
 
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <ShipmentList>
       <div
         style={{
           height: getHeight(10),
-
-          display: "flex",
-          flexDirection: "row",
           alignItems: "center",
         }}
       >
         <div
           style={{
             color: "#ff8a00",
-            fontSize: getWidth(3),
+            fontSize: "36px",
             fontWeight: "bold",
             textDecorationLine: "underline",
             textDecorationColor: "#EEEEEE",
@@ -389,15 +534,16 @@ const ShipmentPanel=(props)=>{
           Shipment
         </div>
       </div>
-      <div style={{display:'flex',flexDirection:'row'}}>
+
+      <ShipmentListItem>
         {shipmentMethods?.map((v, i) => {
           return (
             <div
               cursor
               style={{
-                fontSize: getWidth(0.8),
+                fontSize: '13px',
                 backgroundColor: "white",
-                width: getWidth(10),
+                width: '180px',
                 height: getHeight(8),
                 margin: 10,
                 display: "flex",
@@ -409,9 +555,7 @@ const ShipmentPanel=(props)=>{
                     : "2px solid #cccccc",
                 cursor: "pointer",
                 backgroundColor:
-                  selectedShipment?.id == v?.id
-                    ? "#e7faf0"
-                    : "#ffffff",
+                  selectedShipment?.id == v?.id ? "#e7faf0" : "#ffffff",
               }}
               onClick={() => {
                 setSelectedShipment(v);
@@ -426,8 +570,8 @@ const ShipmentPanel=(props)=>{
             </div>
           );
         })}
-      </div>
-    </div>
+      </ShipmentListItem>
+    </ShipmentList>
   );
 }
 
@@ -440,7 +584,7 @@ const PaymentPanel = (props) => {
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+<PaymentList>
       <div
         style={{
           height: getHeight(10),
@@ -453,7 +597,7 @@ const PaymentPanel = (props) => {
         <div
           style={{
             color: "#ff8a00",
-            fontSize: getWidth(3),
+            fontSize: '36px',
             fontWeight: "bold",
             textDecorationLine: "underline",
             textDecorationColor: "#EEEEEE",
@@ -464,15 +608,15 @@ const PaymentPanel = (props) => {
           Payment
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <PaymentListItem>
         {paymentMethods?.map((v, i) => {
           return (
             <div
               cursor
               style={{
-                fontSize: getWidth(0.8),
+                fontSize: '13px',
                 backgroundColor: "white",
-                width: getWidth(10),
+                width:'180px',
                 height: getHeight(8),
                 margin: 10,
                 display: "flex",
@@ -501,8 +645,8 @@ const PaymentPanel = (props) => {
             </div>
           );
         })}
-      </div>
-    </div>
+    </PaymentListItem>
+    </PaymentList>
   );
 };
 
@@ -521,7 +665,7 @@ const TopBarDeliveryDetails=(props)=>{
       <div
         style={{
           color: "#ff8a00",
-          fontSize: getWidth(3),
+          fontSize: '36px',
           fontWeight: "bold",
           textDecorationLine: "underline",
           textDecorationColor: "#EEEEEE",
@@ -542,28 +686,35 @@ const TopBarDeliveryDetails=(props)=>{
   );
 }
 
-const TopBanner = () => {
+const TopBanner = (props) => {
+  const {step}=props
   return (
-    <div style={styles.indicatorContainer}>
-      <TopIndicatorNumber>1</TopIndicatorNumber>
-      <TopIndicatorText>Delivery</TopIndicatorText>
+    <IndicatorContainer>
+      <StepItem>
+        <StepNumber>1</StepNumber>
+        <StepTitle>Delivery</StepTitle>
+      </StepItem>
       <FaChevronRight
         size={20}
         color={"#ff8a00"}
         fontWeight={"bold"}
         style={{ marginLeft: 10, marginRight: 10 }}
       />
-      <TopIndicatorNumber>2</TopIndicatorNumber>
-      <TopIndicatorText>Payment</TopIndicatorText>
+      <StepItem>
+        <StepNumber>2</StepNumber>
+        <StepTitle>Payment</StepTitle>
+      </StepItem>
       <FaChevronRight
         size={20}
         color={"#ff8a00"}
         fontWeight={"bold"}
         style={{ marginLeft: 10, marginRight: 10 }}
       />
-      <TopIndicatorNumber>3</TopIndicatorNumber>
-      <TopIndicatorText>Finish</TopIndicatorText>
-    </div>
+      <StepItem>
+        <StepNumber>3</StepNumber>
+        <StepTitle>Finish</StepTitle>
+      </StepItem>
+    </IndicatorContainer>
   );
 };
 function App() {
@@ -617,9 +768,10 @@ function App() {
   }, [isChecked,selectedShipment]);
   return (
     <div className="App">
+      
       <div style={styles.container}>
         <div style={styles.checkoutBanner}>
-          <TopBanner />
+          <TopBanner step={step}/>
 
           <div style={{ width: "90%", height: "100%" }}>
             
@@ -629,8 +781,10 @@ function App() {
                 width: "120px",
                 display: "flex",
                 alignItems: "center",
-                fontSize: getWidth(1),
-                cursor:step==2?'pointer':null
+                fontSize: '14px',
+                cursor:step==2?'pointer':null,
+                marginTop:10,
+                marginBottom:10
               }}
               onClick={()=>{
 setStep(1)
@@ -640,16 +794,9 @@ setStep(1)
           
               {step==1?'Back to cart':step==2?'Back to delivery':null}
             </div>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-
-                display: "flex",
-                flexDirection: "row",
-              }}
+            <ContentWrapper
             >
-              <div style={{ width: "70%" }}>
+              <div>
                 {step == 1 ? (
                   <>
                     <TopBarDeliveryDetails
@@ -705,12 +852,12 @@ setStep(1)
                         display: "flex",
                         justifyContent: "center",
                         height: "100%",
-                        marginTop: "20%",
+                        marginTop: "40px",
                       }}
                     >
                       <div
                         style={{
-                          height: getHeight(10),
+                          height: getHeight(14),
 
                           display: "flex",
                           flexDirection: "column",
@@ -720,7 +867,7 @@ setStep(1)
                         <div
                           style={{
                             color: "#ff8a00",
-                            fontSize: getWidth(3),
+                            fontSize: '36px',
                             fontWeight: "bold",
                             textDecorationLine: "underline",
                             textDecorationColor: "#EEEEEE",
@@ -732,7 +879,7 @@ setStep(1)
                         </div>
                         <div
                           style={{
-                            fontSize: width / 110,
+                            fontSize: '14px',
                             width: "100%",
                             textAlign: "left",
                             margin: 5,
@@ -745,7 +892,7 @@ setStep(1)
                           style={{
                             color: "grey",
                             marginRight: 15,
-                            fontSize: getWidth(0.9),
+                            fontSize: '14px',
                             textAlign: "left",
                           }}
                         >
@@ -757,7 +904,7 @@ setStep(1)
                             width: "100%  ",
                             display: "flex",
                             alignItems: "center",
-                            fontSize: getWidth(1),
+                            fontSize: '14px',
                             marginTop: 20,
                             color: "#666666",
                             cursor:'pointer'
@@ -767,7 +914,7 @@ setStep(1)
                           }}
                         >
                           <AiOutlineArrowLeft
-                            size={30}
+                            size={14}
                             style={{ marginRight: 10 }}
                             color={"#666666"}
                           />
@@ -791,7 +938,7 @@ setStep(1)
                 selectedPayment={selectedPayment}
                 selectedShipment={selectedShipment}
               />
-            </div>
+            </ContentWrapper>
           </div>
         </div>
       </div>

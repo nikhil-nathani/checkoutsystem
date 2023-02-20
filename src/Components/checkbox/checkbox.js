@@ -37,7 +37,7 @@ function Checkbox(props) {
   );
 
   return (
-    <label style={{fontSize:width/100,display:'flex',alignItems:'center',justifyContent:'center'}}>
+    <label style={{fontSize:'14px',display:'flex',alignItems:'center',justifyContent:'center'}}>
       <input
         type="checkbox"
         onChange={() => {
