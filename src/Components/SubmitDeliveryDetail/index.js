@@ -130,7 +130,7 @@ return (
             }}
             accept=""
             onChange={(e) => {
-              const re = /^[0-9\b]+$/;
+              const re = /^[0-9,\-\+\(\)]*$/;
 
               // if value is not blank, then test the regex
 
@@ -297,7 +297,7 @@ return (
               }}
               value={dropshipNumber}
               onChange={(e) => {
-                const re = /^[0-9\b]+$/;
+                const re = /^[0-9,\-\+\(\)]*$/;
                 // if value is not blank, then test the regex
 
                 if (e.target.value === "" || re.test(e.target.value)) {
