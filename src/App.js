@@ -778,6 +778,8 @@ totalpriceofproducts =
       totalpriceofproducts = totalpriceofproducts + 5900;
       setTotal(totalpriceofproducts);
     } else {
+      setDropshipName('')
+      setDropshipNumber('')
       console.log(totalpriceofproducts,"TOTAL PRICE")
       setTotal(totalpriceofproducts);
     }
