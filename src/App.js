@@ -314,7 +314,7 @@ const Summary=(props)=>{
                 fontSize: "14px",
                 width: "100%",
                 fontWeight: "bold",
-                textAlign: "left",
+                textAlign: "right",
                 color: "#31dc87",
                 margin: 5,
               
